@@ -6,6 +6,25 @@
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         const contactForm = document.getElementById('contactForm');
+        const visitorCountEl = document.getElementById('visitor-count');
+
+        // Visitor counter
+        if (visitorCountEl) {
+            fetch('https://r42jub0svh.execute-api.eu-north-1.amazonaws.com/count')
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    visitorCountEl.textContent = data.count;
+                })
+                .catch(function (error) {
+                    console.error('Error fetching visitor count:', error);
+                    visitorCountEl.textContent = 'Error';
+                });
+        }
 
         // Navbar scroll effect
         if (navbar) {
